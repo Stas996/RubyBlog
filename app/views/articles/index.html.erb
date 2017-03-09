@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Новости</h1>
+
+<% if current_user %>
+  <%= link_to 'Новая статья', new_article_path %>
+<% end %>
+
+<% @articles.each do |article| %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <strong><%= article.title %></strong>
+      <span class="text-muted">
+        Автор: <%= link_to article.user, article.user %> , Опубликовано: <%= article.updated_at.strftime("%d.%m.%Y в %H:%M") %>
+      </span>
+        <div class="pull-right">
+          <%= link_to 'Просмотр', article %>
+          <% if current_user && current_user.id === article.user_id %>
+            | <%= link_to 'Редактировать', edit_article_path(article) %>
+            | <%= link_to 'Удалить', article, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </div>
+    </div>
+    <div class="panel-body">
+      <%= article.content %>
+    </div>
+  </div>
+<% end %>
+

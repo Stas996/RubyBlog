@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+	<div class="col-lg-12">
+        <!-- the actual blog post: title/author/date/content -->
+        <h1><%= @article.title %></h1>
+            <p class="lead">
+            	<i class="fa fa-user"></i> Автор: <%= link_to @article.user, user_path(@article.user) %>
+            </p>
+            <hr>
+            <p>
+            	<i class="fa fa-calendar"></i> Опубликовано: <%= @article.created_at.strftime("%d.%m.%Y в %H:%M") %> | 
+            	<%= link_to "Редактировать", edit_article_path(@article) if current_user && @article.user_id === current_user.id%>
+            </p>
+					
+            <hr>
+            <p><%= @article.content %></p>
+        
+            <br/>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-9">
+		<hr>
+		<h2>Комментарии:</h2>
+		<div id="comments_block">
+		  <ul id="comments-list" class="comments-list">
+			<%= render @article.comments %>
+		  </ul>
+		</div>
+
+		<!-- comment form -->
+		<% if current_user %>
+			<%= render partial: 'comments/form', locals: {commentable: @article, reply: false} %>
+		<% end %>
+	</div>
+</div>
+
+

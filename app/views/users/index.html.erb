@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Пользователи</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Birth date</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.birth_date %></td>
+        <td><%= user.email %></td>
+        <td><%= link_to 'Просмотреть', user %></td>
+        <td><%= link_to 'Редактировать', edit_user_path(user) %></td>
+        <td><%= link_to 'Удалить', user, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

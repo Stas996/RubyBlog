@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cloudnews</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <%= link_to "Cloudnews", root_path, class: "navbar-brand" %>
+        </div>
+
+        <ul class="nav navbar-nav">
+          <li class="active"><%= link_to "Новости", articles_path %></li>
+        </ul>
+
+        <div class="pull-right">
+          <ul class="nav navbar-nav">
+            <% if current_user %>
+              <li><%= link_to "#{current_user} (#{current_user.email})", current_user %></li>
+              <li><%= link_to "Выход", logout_path %></li>
+            <% else %>
+              <li><%= link_to "Регистрация", signup_path %></li>
+              <li><%= link_to "Вход", login_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+<div class="container">
+  <%= yield %>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $(document).on('click', '.comment-on', function(){
+      $(this).parents('li').find('.comment-panel').removeClass('ms-hidden');
+    });
+
+    $(document).on('click', '.comment-cancel', function(){
+      $(this).parents('.comment-panel').addClass('ms-hidden');
+    });
+
+    /*$(document).on('ajaxSuccess', function(){
+      $(this).parents('.comment-panel').find('textarea').val('');
+    });*/
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<li>
+	<div class="col-md-2">
+		<div class="thumbnail">
+			<%= link_to (image_tag((comment.user.image ? comment.user.image.source : "avatar_2x.png"), :alt => "oops", :class => "img-responsive user-photo")),  comment.user %>
+		</div><!-- /thumbnail -->
+	</div><!-- /col-sm-1 -->
+
+	<div class="col-md-10">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<strong><%= link_to comment.user, comment.user %></strong> 
+				<span class="text-muted">
+					<%= comment.updated_at.strftime("%d.%m.%Y в %H:%M") %>
+				</span>
+				<div class="pull-right">
+					<% if current_user %>
+						<% if comment.user_id == current_user.id %>
+							<%= link_to 'Удалить', [comment.commentable, comment],
+							   remote: true,
+				               method: :delete,
+				               data: { confirm: 'Вы уверены что хотите удалить запись?' } %> | 
+			            <% end %>
+			            <% if comment.commentable.is_a?(Article) %>
+			            	<a class="comment-on">Комментировать</a>
+			            <% end %>
+		            <% end %>
+				</div>
+			</div>
+			<div class="panel-body">
+				<%= comment.content %>
+			</div><!-- /panel-body -->
+		</div><!-- /panel panel-default -->
+	</div><!-- /col-sm-5 -->
+
+	<ul class="comments-list reply-list">
+	  <% unless comment.comments.empty? %>
+	    <%= render comment.comments %>
+	  <% end %>
+	</ul>
+
+	<% if current_user && comment.commentable.is_a?(Article) %>
+	    <%= render partial: 'comments/form', locals: {commentable: comment, reply: true} %>
+	<% end %>
+	
+</li>
