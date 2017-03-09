@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   resources :users do
     resources :images, only: [:create]
   end
-  get 'pages/index'
 
   root 'articles#index'
 end

@@ -12,8 +12,8 @@
                 <div class="col-md-3 col-lg-3 " align="center">               	
                 	<%= form_for(current_user, url: user_images_path(current_user), method: :post) do |f| %>
                       <%= image_tag((@user.image ? @user.image.source : "avatar_2x.png"), alt: "oops", class: "img-circle img-responsive") %>
-                      <%= f.file_field :image %>
-                      <%= f.submit 'Сохранить', class: "btn btn-primary" %>                     
+                      <%= f.file_field :image, id: "image_field" %>
+                      <%= f.submit 'Сохранить', id: "btn_save_image", class: "btn btn-primary" %>                     
                   <% end %>
                 </div>
                 
@@ -45,3 +45,14 @@
           </div>
         </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+
+    $('#btn_save_image').hide();
+
+    $('#image_field').change(fucntion() {
+      $('#btn_save_image').show();
+    });
+  });
+</script>

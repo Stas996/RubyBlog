@@ -14,7 +14,7 @@ class ImagesController < ApplicationController
 
   def upload_image
     @uploaded = params[:user][:image]
-	  File.open(Rails.root.join(relative_path, @uploaded.original_filename), 'wb') do |file|
+	  File.open(File.join(relative_path, @uploaded.original_filename), 'wb') do |file|
 	  file.write(@uploaded.read)
 	end
   end
