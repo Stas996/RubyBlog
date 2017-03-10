@@ -12,30 +12,35 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :first_name %><br>
+    Имя:
+    <br>
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br>
+    Фамилия:<br>
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :birth_date %><br>
-    <%= f.date_select :birth_date %>
+    Дата рождения:
+    <br>
+    <%= f.date_select :birth_date, start_year: 2010, end_year: 1940 %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    Электронная почта:
+    <br>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :password %><br>
+    Пароль:
+    <br>
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation %><br>
+    Подтверждение пароля:
+    <br>
     <%= f.password_field :password_confirmation %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Зарегистрироваться'%>
   </div>
 <% end %>
