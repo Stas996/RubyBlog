@@ -9,12 +9,14 @@
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center">               	
-                	<%= form_for(current_user, url: user_images_path(current_user), method: :post) do |f| %>
-                      <%= image_tag((@user.image ? @user.image.source : "avatar_2x.png"), alt: "oops", class: "img-circle img-responsive") %>
-                      <%= f.file_field :image, id: "image_field" %>
-                      <%= f.submit 'Сохранить', id: "btn_save_image", class: "btn btn-primary" %>                     
-                  <% end %>
+                <div class="col-md-3 col-lg-3 " align="center">    
+                  <%= image_tag((@user.image ? @user.image.source : "avatar_2x.png"), alt: "oops", class: "img-circle img-responsive") %> 
+                  <% if current_user && current_user.id === @user.id %>          	
+                  	<%= form_for(current_user, url: user_images_path(current_user), method: :post) do |f| %>
+                        <%= f.file_field :image, id: "image_field" %>
+                        <%= f.submit 'Сохранить', id: "btn_save_image", class: "btn btn-primary" %>                    
+                    <% end %>
+                  <% end %> 
                 </div>
                 
                 <div class=" col-md-9 col-lg-9 "> 
