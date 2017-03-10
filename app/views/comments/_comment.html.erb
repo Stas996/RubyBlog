@@ -1,7 +1,8 @@
 <li>
 	<div class="col-md-2">
 		<div class="thumbnail">
-			<%= link_to (image_tag((comment.user.image ? comment.user.image.source : "avatar_2x.png"), :alt => "oops", :class => "img-responsive user-photo")),  comment.user %>
+			<%= link_to (image_tag((comment.user.image ? user_image_path(id: comment.user.image.id, user_id: comment.user.id) : "avatar_2x.png"),
+			 :alt => "oops", :class => "img-responsive user-photo")),  comment.user %>
 		</div><!-- /thumbnail -->
 	</div><!-- /col-sm-1 -->
 
