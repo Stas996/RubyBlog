@@ -39,12 +39,15 @@
 
 <script>
   $(document).ready(function(){
-    $(document).on('click', '.comment-on', function(){
-      $(this).parents('li').find('.comment-panel').removeClass('ms-hidden');
+    $('.comments-list .comment-form').hide();
+    $('.comment-form:last').appendTo('#comment-form-block');
+
+    $(document).on('click', '.edit-comment', function(){
+      $(this).parents('.comment-content').addClass('editable');
     });
 
-    $(document).on('click', '.comment-cancel', function(){
-      $(this).parents('.comment-panel').addClass('ms-hidden');
+    $(document).on('click', '.comment-on', function(){
+      $(this).parents('li').find('.comment-form').show();
     });
   });
 </script>

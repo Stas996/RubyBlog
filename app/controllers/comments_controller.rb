@@ -1,23 +1,31 @@
 class CommentsController < ApplicationController
   before_filter :get_parent
+  before_filter :get_article
+  before_filter :get_comment, only: [:edit, :update, :destroy]
+
+  include AjaxHelper
+
+  def index
+    redirect_to_ajax("comments/index.js.erb")
+  end
+
+  def edit
+    redirect_to_ajax("comments/edit.js.erb")
+  end
 
   def create
-    @comment = @parent.comments.create(comment_params)
-    respond_to do |format|
-        format.html { redirect_to article_path(@article) }
-        format.js
-    end
-  
+    @parent.comments.create(comment_params)
+    redirect_to_ajax("comments/index.js.erb")
+  end
+
+  def update
+    @comment.update(comment_params)
+    redirect_to_ajax("comments/index.js.erb")
   end
  
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy
-
-    respond_to do |format|
-        format.html { redirect_to article_path(@article) }
-        format.js
-    end
+    redirect_to_ajax("comments/index.js.erb")
   end
 
   private
@@ -28,8 +36,15 @@ class CommentsController < ApplicationController
     def get_parent
       @parent = Article.find(params[:article_id]) if params[:article_id]
       @parent = Comment.find(params[:comment_id]) if params[:comment_id]
-      @article = @parent.is_a?(Article) ? @parent : @parent.article
 
       redirect_to root_path unless defined?(@parent)
+    end
+
+    def get_article
+      @article = @parent.is_a?(Article) ? @parent : @parent.article
+    end
+
+    def get_comment
+      @comment = Comment.find(params[:id])
     end
 end

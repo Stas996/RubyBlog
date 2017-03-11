@@ -22,7 +22,11 @@
         <td><%= user.email %></td>
         <td><%= link_to 'Просмотреть', user %></td>
         <td><%= link_to 'Редактировать', edit_user_path(user) %></td>
-        <td><%= link_to 'Удалить', user, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+        <td>
+          <% if user.id != current_user.id %>
+            <%= link_to 'Удалить', user, method: :delete, data: { confirm: 'Вы уверены?' } %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

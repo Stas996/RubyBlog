@@ -1,15 +1,15 @@
 <!-- the comment box -->
-<%= content_tag :div, class: "comment-panel #{reply ? 'ms-hidden' : ''}" do %>
-	<div class="well">
-		<%= form_for([commentable, commentable.comments.build], remote: true) do |f| %>
-        	<div class="form-group">
-        		<%= f.hidden_field :user_id, value: current_user.id %>
-            	<%= f.text_area :content, class: "form-control", placeholder: "Комментарий...", rows: "3" %>
-        	</div>
-        	<%= f.submit 'Отправить', id: 'btn-send', class: "btn btn-primary" %>
-        	<% if reply %>
-        		<input class="comment-cancel btn btn-warning" type="button" value="Отмена">
-        	<% end %>
-    	<% end %>
-	</div>
-<% end %>
+<div class="well">
+	<%= form_for([comment.commentable, comment], method: method, remote: true) do |f| %>
+        <div class="form-group">
+        	<%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.text_area :content, class: "form-control", placeholder: "Комментарий...", rows: "3" %>
+        </div>
+        <%= f.submit 'Отправить', id: 'btn-send', class: "btn btn-primary" %>
+        <% if comment.commentable.is_a?(Comment) || method == :put %>
+	        <%= link_to 'Отмена', article_comments_path(comment.article), 
+				            	remote: true, 
+				            	class: "comment-cancel btn btn-warning" %>
+		<% end %>
+    <% end %>
+</div>

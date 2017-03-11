@@ -24,15 +24,19 @@
 	<div class="col-md-9">
 		<hr>
 		<h2>Комментарии:</h2>
-		<div id="comments_block">
+		<div id="comment-form-block"></div>
+
+		<div id="comments-block">
 		  <ul id="comments-list" class="comments-list">
 			<%= render @article.comments %>
 		  </ul>
 		</div>
-
+		<hr>
 		<!-- comment form -->
 		<% if current_user %>
-			<%= render partial: 'comments/form', locals: {commentable: @article, reply: false} %>
+			<div class="comment-form">
+				<%= render partial: 'comments/form', locals: {comment: @article.comments.build, method: :post} %>
+			</div>
 		<% end %>
 	</div>
 </div>

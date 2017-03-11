@@ -1,0 +1,1 @@
+$('.comment-content.editable').html('<%= escape_javascript(render partial: 'comments/form', locals: {comment: @comment, method: :put}) %>');
