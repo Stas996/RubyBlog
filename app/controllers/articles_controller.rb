@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :authentification, only: [:edit, :update, :destroy]
+  before_action :logged_in?, only: [:edit, :update, :destroy]
 
   def index
     @articles = Article.all
@@ -47,11 +47,5 @@ class ArticlesController < ApplicationController
 private
   def article_params
     params.require(:article).permit(:title, :content, :user_id, :rating)
-  end
-
-  def authentification
-    unless current_user 
-      redirect_to login_path
-    end
   end
 end

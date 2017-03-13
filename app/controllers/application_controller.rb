@@ -6,5 +6,11 @@ class ApplicationController < ActionController::Base
       User.where(id: session[:user_id]).first
     end
 
-    helper_method :current_user
+    def logged_in?
+	  unless current_user 
+	    redirect_to login_path
+	  end
+	end
+
+    helper_method :current_user, :logged_in?
 end

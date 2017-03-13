@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authentification, except: [:show, :new, :create]
+  before_action :logged_in?, except: [:show, :new, :create]
   before_action :set_user, except: [:index, :new, :create]
 
   def index
@@ -47,12 +47,6 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.find(params[:id])
-    end
-
-    def authentification
-      unless current_user 
-        redirect_to login_path
-      end
     end
 
     def user_params
